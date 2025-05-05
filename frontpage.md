@@ -2,8 +2,8 @@
 ### Projektin esittely ja tarkoitus
 - 
 ### MasterServerin pystytys
-- Ensin loin projektille uuden kansion ja siirryin sinne komennolla mkdir vpn-project && cd vpn-project
-- ![Näyttökuva (295)](https://github.com/user-attachments/assets/781d1a51-6e0c-4e3e-8dc8-609a984b848f)
+- Ensin loin projektille uuden kansion ja siirryin sinne komennolla `mkdir vpn-project && cd vpn-project`.
+ ![Näyttökuva (295)](https://github.com/user-attachments/assets/781d1a51-6e0c-4e3e-8dc8-609a984b848f)
 - 
 
 ### Githubin luonti
