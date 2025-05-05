@@ -2,7 +2,7 @@
 ### Projektin esittely ja tarkoitus
 - 
 ### MasterServerin pystytys
-- Ensin loin projektille uuden kansion ja siirryin sinne komennolla `mkdir vpn-project && cd vpn-project`.
+- Ensin loin projektille uuden kansion ja siirryin sinne komennolla `mkdir vpn-project && cd vpn-project`. Tämän jälkeen latasin focal64 komennolla `vagrant box add ubuntu/focal64` ja alustin sen ajamalla komennon `vagrant init ubuntu/focal64`. Kun virtuaalikone oli luotu, niin siirryin muokkaamaan Vagrantfile-tiedostoa komennolla `notepad Vagrantfile`.
  ![Näyttökuva (295)](https://github.com/user-attachments/assets/781d1a51-6e0c-4e3e-8dc8-609a984b848f)
 - 
 
@@ -14,6 +14,3 @@
 - 
 
 ## Lähteet:
-- Karvinen 2018: https://terokarvinen.com/2018/04/03/pkg-file-service-control-daemons-with-salt-change-ssh-server-port/?fromSearch=karvinen%20salt%20ssh. Luettu 22.4.2025.
-- Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#h4-pkg-file-service. Luettu 22.4.2025.
-
