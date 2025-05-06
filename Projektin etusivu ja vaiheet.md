@@ -8,7 +8,7 @@
 [3. Client-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#3-client-palvelimen-pystytys-salt-minionin-asennus-ja-p%C3%A4ivitysten-automaattinen-asennus) <br>
 [4. Salt-masterin automatisoitu asennus ja Vagrantfilen hienosäätö](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#4-salt-masterin-automatisoitu-asennus-ja-vagrantfilen-hienos%C3%A4%C3%A4t%C3%B6) <br>
 [5. Palvelinten linkitys](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#5-palvelinten-linkitys) <br>
-[6. WireGuardin asennus ja konfigurointi]() <br>
+[6. WireGuardin asennus ja konfigurointi](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#6-wireguardin-asennus-ja-konfigurointi) <br>
 [Lähteet](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#l%C3%A4hteet)<br>
   
 ### 1. Master-palvelimen pystytys ja Salt-masterin asennus
