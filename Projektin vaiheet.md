@@ -27,22 +27,27 @@
   ![Näyttökuva (10)](https://github.com/user-attachments/assets/b97b0ab0-6633-4a48-b8f2-68791a467df5)
   ![Näyttökuva (11)](https://github.com/user-attachments/assets/ed48c5e7-55eb-43f1-968f-7b953717e571)
   
-### 3. Client-palvelimen pystytys, Salt-minionin asennus ja Vagrantfilen viimeistely
+### 3. Client-palvelimen pystytys, Salt-minionin asennus ja päivitysten automaattinen asennus
 - Vagrantfilessa sekä koneen luonti että minion_script selkeästi toimivat, mutta vpn-palvelimen kanssa prosessi ei ollut täysin automatisoitu kuten toivoin. Halusin varmistaa koodin toimivuuden kopioimalla sen client-palvelimelle ja muuttamalla hostnamen ja ip-osoitteen. Alla olevassa kuvakaappauksessa näkyy muokattu Vagrantfile.
   ![Näyttökuva (12)](https://github.com/user-attachments/assets/7e0a580d-b55a-456b-a59a-f1db433aa613)
 - Käynnistin koneet jälleen `vagrant up` komennolla, mutta tällä kertaa kaikki sujui hyvin eikä tullut timeouttia. Yhdistin client-palvelimelle komennolla `vagrant ssh ClientServer` ja tarkistin salt-minionin tilan komennolla `systemctl status salt-minion`. Salt-minion oli asentunut kerralla oikein ja palvelimen nimikin oli oikein. Kirjauduinkin ulos palvelimelta ja siirryin takaisin Vagrantfileen tekemään muutamia hienosäätöjä.
   ![Näyttökuva (13)](https://github.com/user-attachments/assets/618e8621-b5e5-4540-a73e-74d59535b093)
 - Nyt kun Vagrantfilen koodit ja skriptit on todettu toimiviksi halusin lisätä vielä uuden update-skriptin, joka hakee ja asentaa päivitykset automaattisesti. Otin mallia aiemmasta minion_scriptistä ja lisäsin jokaisen virtuaalikoneen ajamaan sen käynnistyksen yhteydessä. Alla on kuvakaappaus päivitetystä Vagrantfilesta.
   ![Näyttökuva (14)](https://github.com/user-attachments/assets/16c6c888-e478-4c92-a8d4-2ac9fd270786)
-- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta käyttämällä `vagrant up`. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Jouduin ajamaan komennot yksitellen kaikille kolmelle palvelimelle, mutta se toimi kuten pitikin. Ainoana huomio oli se, että minion_script ajetaan, vaikka salt-minion olisi jo asennettu. Se periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu, mutta se kuitenkin hidastaa jonkin verran palvelinten käynnistymistä. En kuitenkaan tunne vielä ruby-ohjelmointia riittävän hyvin, että osaisin luoda toimivan if-silmukan. Yritän kuitenkin korjata tämän, mikäli aika riittää siihen.
-
+- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta käyttämällä `vagrant up`. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Jouduin ajamaan komennot yksitellen kaikille kolmelle palvelimelle, mutta se toimi kuten pitikin, mutta tein kaksi huomiota.
+    1. minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se pitkällä tähtäimellä olisi hyvä korjata esim. if-silmukalla. En kuitenkaan tunne ruby ohjelmointia erityisen hyvin ja siihen pitäisi perehtyä tarkemmin, joten palaan siihen hieman myöhemmin.
+    2. update-skripti toimii, mutta se ei aina asenna kaikkia päivityksiä, vaikka pitäisi. Yritin korjata tämän ensin antamalla skriptille sudo-oikeudet, mutta se ei korjannut tilannetta.
+    3. salt-master ei aina käynnistynyt, joten lisäsin skripteihin asennuksen jälkeen `sudo systemctl start salt-master` ja `sudo systemctl start salt-master`.
+    4. Vaatii rebootin, ei aikaa
 
 ### 4. Palvelinten linkitys toisiinsa
-
+- 
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
 - Karvinen 2021: https://terokarvinen.com/2021/two-machine-virtual-network-with-debian-11-bullseye-and-vagrant/. Luettu 5.5.2025.
 - VMware, Inc 2025: https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/linux-deb.html. Luettu 5.5.2025.
 - HashiCopr Developer s.a: https://developer.hashicorp.com/vagrant/docs/provisioning/shell#inline-scripts. Luettu 5.5.2025.
-- 
+- AskUbuntu 2014: https://askubuntu.com/questions/449032/29-packages-can-be-updated-how. Luettu 5.5.2025.
+- It's Foss 2023: https://itsfoss.com/apt-get-upgrade-vs-dist-upgrade/. Luettu 5.5.2025.
+- StackOverflow 2017: https://stackoverflow.com/questions/46426290/vagrantfile-how-to-check-if-installed-and-install-eventually. Luettu 5.5.2025.
