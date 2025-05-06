@@ -77,8 +77,10 @@
   ![Näyttökuva (26)](https://github.com/user-attachments/assets/9f8044b2-4bdb-4a45-a115-f4fe56ae82a5)
   
   ![Näyttökuva (27)](https://github.com/user-attachments/assets/7da941ce-81f0-4dcd-bdde-4404f36799b5)
-- Tästä eteenpäin homma alkoi lahoamaan, sillä seurasin WireGuardin asennus [tutoriaalia](https://www.netmaker.io/resources/wireguard-vpn) ja seuraavassa vaiheessa tuli luoda erilaiset avaimet client -ja vpn-palvelimille. Tämä ei tietenkään onnistunut yhdellä init.sls tiedostolla, sillä se luo tiedostot kummallekin minionille, joten jouduin luomaan kaksi init-tiedostoa, jotka ajan omille minioneille. Muutin alkuperäisen init-tiedoston nimeksi vpn_init.sls ja loin toisen tiedoston clientille komennolla `sudo nano /srv/salt/wireguard/client_init.sls`.
-
+- Tästä eteenpäin homma alkoi muuttua haastavammaksi, sillä seurasin WireGuardin asennus [tutoriaalia](https://www.netmaker.io/resources/wireguard-vpn) ja seuraavassa vaiheessa tuli luoda erilaiset avaimet client -ja vpn-palvelimille. Tämä ei tietenkään onnistunut yhdellä init.sls tiedostolla, sillä se luo samat tiedostot kummallekin minionille. Tämän vuoksi jouduin luomaan kaksi init-tiedostoa, jotka ajan erikseen omille minioneille. Muutin alkuperäisen init-tiedoston nimeksi vpn_init.sls ja loin toisen tiedoston clientille komennolla `sudo nano /srv/salt/wireguard/client_init.sls`.
+  ![Näyttökuva (28)](https://github.com/user-attachments/assets/c435c08a-1e25-4fea-89e6-5a2d65c8bc52)
+- Tämän jälkeen tein config-tiedostoille ja avaimille oman polun komennolla `sudo mkdir -p /srv/salt/wireguard/files` ja siirryin sinne komennolla `cd /srv/salt/wireguard/files/`. Seuraavaksi yritin luoda palvelimille avainparit ajamalla komennon `sudo wg genkey | sudo tee vpn_private.key | wg pubkey | sudo tee vpn_public.key`. Nimi on eri kuin ohjeistuksessa, koska sama komento tulisi ajaa erikseen vpn-palvelimella ja client-palvelimella, jolloin generoituja avaimia olisi yhteensä neljä. Haluan tehdä tämän kuitenkin master-palvelimelta käsin, joten päätin antaa avaimilleni nimiksi vpn_private.key ja vpn_public.key. Komento ei kuitenkaan toiminut, koska en ollut asentanut WireGuardia master-palvelimelle. Asensin sen nopeasti hakemalla ensin päivitykset komennolla `sudo apt update` ja sitten asentamalla wireguardin komennolla `sudo apt install wireguard -y`
+- ![Näyttökuva (29)](https://github.com/user-attachments/assets/5faf3d1c-06a6-4b78-bc3b-9dc0432b18de)
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
@@ -90,3 +92,4 @@
 - StackOverflow 2009: https://stackoverflow.com/questions/1298066/how-can-i-check-if-a-package-is-installed-and-install-it-if-not. Luettu 5.5.2025.
 - VMware, Inc 2022: https://docs.saltproject.io/salt/install-guide/en/latest/topics/configure-master-minion.html#connecting-to-the-salt-master. Luettu 5.5.2025.
 - AskUbuntu 2014: https://askubuntu.com/questions/408340/is-there-any-significance-to-using-tee. Luettu 5.5.2025.
+- Netmaker 2024: https://www.netmaker.io/resources/wireguard-vpn. Luettu 6.5.2025.
