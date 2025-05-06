@@ -54,10 +54,11 @@
 
 ### 5. Palvelinten linkitys
 - Kun Vagrantfilen automaatiot oli hiottu, niin siirryin takaisin master-slave rakenteen luomiseen. Aloitin kirjautumalla vpn-palvelimelle komennolla `vagrant ssh ClientServer` ja katsomalla mallia [täältä](https://docs.saltproject.io/salt/install-guide/en/latest/topics/configure-master-minion.html#connecting-to-the-salt-master) ajoin komennon `sudo nano /etc/salt/minion.d/master.conf`. Tämän jälkeen kopioin Notepadista master-palvelimelle asetetun ip-osoitteen ja lisäsin sen tiedostoon. Tämän jälkeen ajoin komennon `sudo systemctl restart salt-minion` ja poistuin vpn-palvelimelta.
+  
   ![Näyttökuva (18)](https://github.com/user-attachments/assets/94b16110-668e-4199-9d5a-d0ab2df86b71)
   ![Näyttökuva (19)](https://github.com/user-attachments/assets/eb6efee0-6fcd-451a-804d-b9a043ff439b)
 - Kun vpn-palvelin oli soittanut kotiin hyppäsin master-palvelimelle hyväksymään avaimen
-- ![Näyttökuva (20)](https://github.com/user-attachments/assets/8717dda6-c01e-44fa-9177-5ce931c71e2e)
+  ![Näyttökuva (20)](https://github.com/user-attachments/assets/8717dda6-c01e-44fa-9177-5ce931c71e2e)
 - Nyt kun palvelimet oli liitetty manuaalisesti, niin halusin automatisoida sen Vagrantfileen. Pallottelin jonkin aikaa, että lisäänkö soiton kotiin minion_scriptin loppuun vai teenkö sille oman call_home skriptin. Tulin lopulta siihen lopputulokseen, että on helpointa laittaa se minion_scriptin loppuun, mutta lisätä se if-loopin ulkopuolelle. Tällöin avaimen voi lähettää tarvittaessa uudelleen ajamalla `vagrant provision VpnServer` tai `vagrant provision ClientServer` komennon, mutta sitä varten ei tarvitse luoda uutta skriptiä. 
 
 ### 6. WireGuardin asennus ja konfigurointi
