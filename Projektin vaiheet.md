@@ -1,9 +1,9 @@
 # VPN-palvelin
 ### Sisällysluettelo
-[1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/frontpage.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
-[2. Vpn-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/frontpage.md#2-vpn-palvelimen-pystytys-ja-salt-minionin-asennus) <br>
-[3. Client-palvelimen pystytys ja Salt-minionin asennus]() <br>
-[Lähteet]()<br>
+[1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
+[2. Vpn-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#2-vpn-palvelimen-pystytys-ja-salt-minionin-asennus) <br>
+[3. Client-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#3-client-palvelimen-pystytys-salt-minionin-asennus-ja-vagrantfilen-viimeistely) <br>
+[Lähteet](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#l%C3%A4hteet)<br>
   
 ### 1. Master-palvelimen pystytys ja Salt-masterin asennus
 - Ensin loin projektille uuden kansion ja siirryin sinne komennolla `mkdir vpn-project && cd vpn-project`. Tämän jälkeen latasin focal64 komennolla `vagrant box add ubuntu/focal64` ja alustin sen ajamalla komennon `vagrant init ubuntu/focal64`. Kun virtuaalikone oli luotu, niin siirryin muokkaamaan Vagrantfile-tiedostoa komennolla `notepad Vagrantfile`.
