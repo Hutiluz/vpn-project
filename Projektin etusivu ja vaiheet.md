@@ -37,11 +37,11 @@
   ![Näyttökuva (13)](https://github.com/user-attachments/assets/618e8621-b5e5-4540-a73e-74d59535b093)
 - Nyt kun Vagrantfilen koodit ja skriptit on todettu toimiviksi halusin lisätä vielä uuden update-skriptin, joka hakee ja asentaa päivitykset automaattisesti. Otin mallia aiemmasta minion_scriptistä ja lisäsin jokaisen virtuaalikoneen ajamaan sen käynnistyksen yhteydessä. Alla on kuvakaappaus päivitetystä Vagrantfilesta.
   ![Näyttökuva (14)](https://github.com/user-attachments/assets/16c6c888-e478-4c92-a8d4-2ac9fd270786)
-- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta käyttämällä `vagrant up`. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Jouduin ajamaan komennot yksitellen kaikille kolmelle palvelimelle, mutta se toimi kuten pitikin, mutta tein kaksi huomiota.
-    1. minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se pitkällä tähtäimellä olisi hyvä korjata esim. if-silmukalla. En kuitenkaan tunne ruby ohjelmointia erityisen hyvin ja siihen pitäisi perehtyä tarkemmin, joten palaan siihen hieman myöhemmin.
-    2. update-skripti toimii, mutta se ei aina asenna kaikkia päivityksiä, vaikka pitäisi. Yritin korjata tämän ensin antamalla skriptille sudo-oikeudet, mutta se ei korjannut tilannetta.
-    3. salt-master ei aina käynnistynyt, joten lisäsin skripteihin asennuksen jälkeen `sudo systemctl start salt-master` ja `sudo systemctl start salt-master`.
-    4. Vaatii rebootin, ei aikaa
+- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta `vagrant up` komentoa tuhoamatta niitä. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Ajoin komennot yksitellen kaikille kolmelle palvelimelle ja vaikka skriptien ajot onnistuivat, niin tein neljä huomiota.
+    - minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se pitkällä tähtäimellä olisi hyvä korjata esim. if-silmukalla. En kuitenkaan tunne ruby ohjelmointia erityisen hyvin ja siihen pitäisi perehtyä tarkemmin, joten palaan siihen hieman myöhemmin.
+    - update-skripti toimii, mutta se ei aina asenna kaikkia päivityksiä, vaikka pitäisi. Yritin korjata tämän ensin antamalla skriptille sudo-oikeudet, mutta se ei korjannut tilannetta.
+    - salt-master ei aina käynnistynyt, joten lisäsin skripteihin asennuksen jälkeen `sudo systemctl start salt-master` ja `sudo systemctl start salt-master`.
+    - Vaatii rebootin
 
 ### 4. Palvelinten linkitys toisiinsa
 - 
