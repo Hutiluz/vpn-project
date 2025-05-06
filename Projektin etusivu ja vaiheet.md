@@ -48,10 +48,12 @@
 - Aloitin helpoimmasta ongelmasta eli salt-masterin automaattisesta käynnistyksestä. Halusin tehdä myös sen asennuksesta automatisoidun, joten kopioin minion_scriptin ja tein siitä uuden master_scriptin, jonka lisäsin MasterServerin provisioneihin. Varmistin vielä saltin automaattisen käynnistyksen lisäämällä loppuun `sudo systemctl start salt-master`. Minion-palvelimilla ei ollut vastaavaa ongelmaa saltin käynnistyksessä, mutta lisäsin minion_scriptinkin loppuun `sudo systemctl start salt-mainion` ettei se tule myöhemmin kummittelemaan.
 - Siirryin sen jälkeen korjaamaan update-skriptiä. Kokeilin ensin antaa skriptille root-oikeudet lisäämällä `sudo` komentojen eteen, mutta se ei auttanut. Löysin AskUbuntusta [keskustelun](https://askubuntu.com/questions/449032/29-packages-can-be-updated-how), jossa toisella käyttäjällä oli vastaava ongelma ja siihen oli ehdotettu `dist-upgrade` käyttöä. Tämä korjasi ongelman ja kaikki päivitykset asentuivat, mutta palvelimet tarvitsivat uudelleenkäynnistystä. Yritin lisätä update-skriptin loppuun `sudo reboot`, mutta se vain keskeytti skriptin eikä jatkunut automaattisesti boottauksen jälkeen. En löytänyt tähän äkkiseltään toimivaa ratkaisua, mutta koska palvelimet toimivat ongelmitta ilman uudelleenkäynnistystä, niin en pidä tätä toiminnan kannalta akuuttina ongelmana. Alla kuvakaappaus skriptistä tähän mennessä.
   ![Näyttökuva (15)](https://github.com/user-attachments/assets/66340034-418a-46e4-8dd6-a64abe81874d)
-- 
+- Tämän jälkeen siirryin luomaan master_scriptiin ja minion_scriptiin if-else silmukkaa, joka asentaa saltin vain, jos sitä ei ole valmiiksi asennettu. Tämä ei ole varsinaisesti haastava, sillä tiedän mitä pitää tehdä, mutta en ole kovin kokenut shell skriptaaja, joten tämä vaati hieman perehtymistä. Löysin onneksi StackOverflown [keskustelusta](https://stackoverflow.com/questions/1298066/how-can-i-check-if-a-package-is-installed-and-install-it-if-not) tarkoitukseen sopivan koodinpätkän ja sovelsin sitä omiin skripteihini. Kokeilin sen toimivuutta Master-palvelimella komennolla `vagrant provision MasterServer` ja se toimi hyvin. Alla kuvakaappaukset skripteistä tähän mennessä ja provision-komennon tulosteesta.
+  ![Näyttökuva (16)](https://github.com/user-attachments/assets/01f5c380-076a-43e9-826f-5f0236f2d954)
+  ![Näyttökuva (17)](https://github.com/user-attachments/assets/e9211929-aa43-441d-8163-b14823071bb6)
 
 ### 5. Palvelinten linkitys
-- 
+- Kun Vagrantfile saatiin hiottua, niin siirryin takaisin master-slave rakenteen luomiseen.
 
 ### 6. WireGuardin asennus ja konfigurointi
 - 
@@ -63,4 +65,4 @@
 - HashiCopr Developer s.a: https://developer.hashicorp.com/vagrant/docs/provisioning/shell#inline-scripts. Luettu 5.5.2025.
 - AskUbuntu 2014: https://askubuntu.com/questions/449032/29-packages-can-be-updated-how. Luettu 5.5.2025.
 - It's Foss 2023: https://itsfoss.com/apt-get-upgrade-vs-dist-upgrade/. Luettu 5.5.2025.
-- StackOverflow 2017: https://stackoverflow.com/questions/46426290/vagrantfile-how-to-check-if-installed-and-install-eventually. Luettu 5.5.2025.
+- StackOverflow 2009: https://stackoverflow.com/questions/1298066/how-can-i-check-if-a-package-is-installed-and-install-it-if-not. Luettu 5.5.2025.
