@@ -31,7 +31,9 @@
   ![Näyttökuva (318)](https://github.com/user-attachments/assets/ed48c5e7-55eb-43f1-968f-7b953717e571)
   
 ### 3. Client-palvelimen pystytys
-- 
+- Jotain
+  ![Näyttökuva (319)](https://github.com/user-attachments/assets/7e0a580d-b55a-456b-a59a-f1db433aa613)
+
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
