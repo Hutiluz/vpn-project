@@ -1,6 +1,6 @@
 # VPN-palvelin WireGuardin avulla
 ### Projektin esittely
-- Miniprojektinani tein VPN-palvelimen WireGuardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti toimialueen salt-masterina, kun taas vpn -ja client-palvelimet ovat salt-minionin roolissa. Ideana on reitittää Client-palvelin Vpn-palvelimen kautta.
+- Miniprojektinani tein VPN-palvelimen WireGuardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti toimialueen salt-masterina, kun taas vpn -ja client-palvelimet ovat salt-minionin roolissa. Ideana on reitittää client-palvelin vpn-palvelimen kautta, mutta master-palvelimen hallinnoimana.
   
 ### Sisällysluettelo
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
@@ -53,14 +53,21 @@
   ![Näyttökuva (17)](https://github.com/user-attachments/assets/e9211929-aa43-441d-8163-b14823071bb6)
 
 ### 5. Palvelinten linkitys
-- Kun Vagrantfilen automaatiot oli hiottu, niin siirryin takaisin master-slave rakenteen luomiseen. Aloitin kirjautumalla vpn-palvelimelle komennolla `vagrant ssh ClientServer` ja katsomalla mallia [täältä](https://docs.saltproject.io/salt/install-guide/en/latest/topics/configure-master-minion.html#connecting-to-the-salt-master) ajoin komennon `sudo nano /etc/salt/minion.d/master.conf`. Tämän jälkeen kopioin Notepadista master-palvelimelle asetetun ip-osoitteen ja lisäsin sen tiedostoon. Tämän jälkeen ajoin komennon `sudo systemctl restart salt-minion` ja poistuin vpn-palvelimelta.
+- Kun Vagrantfilen automaatiot oli hiottu, niin siirryin takaisin master-slave rakenteen luomiseen. Aloitin kirjautumalla vpn-palvelimelle komennolla `vagrant ssh ClientServer` ja katsomalla mallia [täältä](https://docs.saltproject.io/salt/install-guide/en/latest/topics/configure-master-minion.html#connecting-to-the-salt-master) ajoin komennon `sudo nano /etc/salt/minion.d/master.conf`. Tämän jälkeen kopioin Notepadista master-palvelimelle asetetun ip-osoitteen ja lisäsin sen tiedostoon. Tämän jälkeen ajoin komennon `sudo systemctl restart salt-minion` ja poistuin vpn-palvelimelta. Kun vpn-palvelin oli soittanut kotiin hyppäsin master-palvelimelle hyväksymään avaimen ajamalla ensin komennon `sudo salt-key -L` ja hyväksymällä vpn-palvelimen avaimen komennolla `sudo salt-key -a vpn`
   
   ![Näyttökuva (18)](https://github.com/user-attachments/assets/94b16110-668e-4199-9d5a-d0ab2df86b71)
   
   ![Näyttökuva (19)](https://github.com/user-attachments/assets/eb6efee0-6fcd-451a-804d-b9a043ff439b)
-- Kun vpn-palvelin oli soittanut kotiin hyppäsin master-palvelimelle hyväksymään avaimen
+
   ![Näyttökuva (20)](https://github.com/user-attachments/assets/8717dda6-c01e-44fa-9177-5ce931c71e2e)
-- Nyt kun palvelimet oli liitetty manuaalisesti, niin halusin automatisoida sen Vagrantfileen. Pallottelin jonkin aikaa, että lisäänkö soiton kotiin minion_scriptin loppuun vai teenkö sille oman call_home skriptin. Tulin lopulta siihen lopputulokseen, että on helpointa laittaa se minion_scriptin loppuun, mutta lisätä se if-loopin ulkopuolelle. Tällöin avaimen voi lähettää tarvittaessa uudelleen ajamalla `vagrant provision VpnServer` tai `vagrant provision ClientServer` komennon, mutta sitä varten ei tarvitse luoda uutta skriptiä. 
+  
+- Nyt kun palvelimet oli onnistuneesti liitetty manuaalisesti, niin halusin automatisoida prosessin Vagrantfileen. Pallottelin jonkin aikaa, että lisäänkö soiton kotiin minion_scriptin loppuun vai teenkö sille oman call_home skriptin. Tulin lopulta siihen lopputulokseen, että on helpointa laittaa se minion_scriptin loppuun, mutta lisätä se if-loopin ulkopuolelle. Tällöin avaimen voi lähettää tarvittaessa uudelleen ajamalla `vagrant provision VpnServer` tai `vagrant provision ClientServer` komennon, mutta sitä varten ei tarvitse luoda uutta skriptiä. Alla kuvakaappaus päivitetystä skriptistä, jossa master-palvelimen ip-osoite lisätään master.conf tiedostoon sudo oikeuksin ja salt-minion potkaistaan uudelleen käyntiin, jotta avain lähtee liikkeelle.
+  ![Näyttökuva (21)](https://github.com/user-attachments/assets/701600f5-24e3-40f2-a14a-00d4ab0156ad)
+- Puhelun vastaamisessa päädyin samanlaiseen ratkaisuun, kuin minion_scriptinkin kanssa eli lisäsin master_scriptin loppuun if-silmukan ulkopuolelle muutaman rivin koodia, jotka käyvät hyväksymässä lähetetyt avaimet. Tätä kohtaa en kuitenkaan saanut täysin automatisoitua, sillä skripti etenee järjestyksessä ylhäältä alas. Jos master-palvelin luodaan ensin, niin skriptillä ei ole vielä hyväksyttäviä avaimia, koska client-palvelinta tai vpn-palvelinta ei ole vielä luotu. Jos taas siirrän master-palvelimen järjestyksessä viimeiseksi, niin avaimet eivät tule perille, koska niille annetussa ip-osoitteessa ei ole vielä mitään. En myöskään keksinyt järkevää tapaa, jolla olisin voinut suorittaa avainten hyväksymisen sen jälkeen, kun virtuaalikoneet oli luotu, sillä provisionien tulee olla define-lohkon sisällä. Tyydyinkin siis siihen, että koneiden käynnistyessä `vagrant up` komennolla ajan uudelleen `vagrant provision MasterServer`, jotta Vagrant ajaa uudelleen skriptin, joka hyväksyy avaimet. Eli ensimmäisellä kerralla koodi ei tee vielä mitään, mutta toistettaessa uudestaan se hyväksyy avaimet. Kun avaimet on hyväksytty, niin vaikka se ajettaisiin uudelleen niin mitään ei tapahdu, koska ei ole enää hyväksyttäviä avaimia. Alla kuvakaappaus päivitetystä master_scriptistä, joka hyväksyy avaimet nimeltä vpn ja client.
+  ![Näyttökuva (22)](https://github.com/user-attachments/assets/3078fb2b-a02c-4703-acff-a42955c81bd5)
+- Lopuksi testasin, että kaikki varmasti toimii tuhoamalla koneet `vagrant destroy` komennolla ja ajamalla uudelleen `vagrant up`. Periaatteessa olisin vain voinut ajaa esim. `vagrant provision ClientServer` ja `vagrant provision MasterServer` komennot, mutta koodiin oli tullut niin paljon kerroksia, että halusin varmistaa kaiken toimivan oikein. Kaikki onneksi toimi kuten pitikin, joten pääsin jatkamaan WireGuardin pariin.
+  ![Näyttökuva (23)](https://github.com/user-attachments/assets/582c3904-7d4c-4d3c-90e2-24d82c0382cd)
+  ![Näyttökuva (24)](https://github.com/user-attachments/assets/ecabd52f-6c3f-412c-b059-d6b7e4d9f1a1)
 
 ### 6. WireGuardin asennus ja konfigurointi
 - 
