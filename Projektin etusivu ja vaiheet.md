@@ -73,7 +73,9 @@
 ### 6. WireGuardin asennus ja konfigurointi
 - Aloitin WireGuardin asennuksen kirjautumalla ensin master-palvelimelle komennolla `vagrant ssh MasterServer` ja varmistamalla yhteyden minionien kanssa pingaamalla ne komennolla `sudo salt '*' test.ping`. Kummatkin palvelimet vastasivat, joten pääsin jatkamaan eteenpäin. Loin WireGuardille oman hakemiston komennolla `sudo mkdir -p /srv/salt/wireguard`, jonka jälkeen loin sille init.sls tiedoston komennolla `sudo nano /srv/salt/wireguard/init.sls`. Halusin jälleen lähteä aluksi aika yksinkertaisesta liikkeelle, joten lisäsin init-tiedostoon pelkästään WireGuardin pkg.installed ja ajoin sen minioneille komennolla `sudo salt '*' state.apply wireguard`. Komento toimi ja WireGuard asentui kummallekin minionille. Varmistin idempotentin ajamalla komennon uudelleen, mikä myös toimi odotetusti.
   ![Näyttökuva (25)](https://github.com/user-attachments/assets/85fe958e-f600-4ccb-b0f8-31cd3c0e1e73)
+  
   ![Näyttökuva (26)](https://github.com/user-attachments/assets/9f8044b2-4bdb-4a45-a115-f4fe56ae82a5)
+  
   ![Näyttökuva (27)](https://github.com/user-attachments/assets/7da941ce-81f0-4dcd-bdde-4404f36799b5)
 - 
 
