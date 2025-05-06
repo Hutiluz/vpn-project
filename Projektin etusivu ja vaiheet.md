@@ -77,7 +77,7 @@
   ![Näyttökuva (26)](https://github.com/user-attachments/assets/9f8044b2-4bdb-4a45-a115-f4fe56ae82a5)
   
   ![Näyttökuva (27)](https://github.com/user-attachments/assets/7da941ce-81f0-4dcd-bdde-4404f36799b5)
-- 
+- Tästä eteenpäin homma alkoi lahoamaan, sillä seurasin WireGuardin asennus [tutoriaalia](https://www.netmaker.io/resources/wireguard-vpn) ja seuraavassa vaiheessa tuli luoda erilaiset avaimet client -ja vpn-palvelimille. Tämä ei tietenkään onnistunut yhdellä init.sls tiedostolla, sillä se luo tiedostot kummallekin minionille, joten jouduin luomaan kaksi init-tiedostoa, jotka ajan omille minioneille. Muutin alkuperäisen init-tiedoston nimeksi vpn_init.sls ja loin toisen tiedoston clientille komennolla `sudo nano /srv/salt/wireguard/client_init.sls`.
 
 
 ## Lähteet:
