@@ -1,6 +1,6 @@
 # VPN-palvelin
 ### Projektin esittely
-- Miniprojektinani tein VPN-palvelimen Wireguardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti 
+- Miniprojektinani tein VPN-palvelimen Wireguardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti toimialueen salt-masterina, kun taas vpn -ja client-palvelimet ovat salt-minionin roolissa. Ideana on reitittää Client-palvelin Vpn-palvelimen kautta.
   
 ### Sisällysluettelo
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
