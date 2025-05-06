@@ -1,8 +1,13 @@
 # VPN-palvelin
 ### Projektin esittely ja tarkoitus
 - Moi
+
+### Sisällysluettelo
+ 1. Master-palvelimen pystytys ja Salt-masterin asennus
+ 2. Vpn-palvelimen pystytys ja Salt-minionin asennus
+ 3. Client-palvelimen pystytys ja Salt-minionin asennus
   
-### Master-palvelimen pystytys ja Salt-masterin asennus
+### 1. Master-palvelimen pystytys ja Salt-masterin asennus
 - Ensin loin projektille uuden kansion ja siirryin sinne komennolla `mkdir vpn-project && cd vpn-project`. Tämän jälkeen latasin focal64 komennolla `vagrant box add ubuntu/focal64` ja alustin sen ajamalla komennon `vagrant init ubuntu/focal64`. Kun virtuaalikone oli luotu, niin siirryin muokkaamaan Vagrantfile-tiedostoa komennolla `notepad Vagrantfile`.
  ![Näyttökuva (1)](https://github.com/user-attachments/assets/781d1a51-6e0c-4e3e-8dc8-609a984b848f)
 - Aiemmissa harjoituksissa olen käyttänyt kurssimateriaaleissa annettuja valmiita koodinpätkiä, mutta projektia varten halusin kokeilla kirjoittaa mahdollisimman paljon itse. En ole kuitenkaan aiemmin kirjoittanut Rubylla enkä ole kovin kokenut koodari, joten otin hieman mallia [Teron materiaaleista](https://terokarvinen.com/2021/two-machine-virtual-network-with-debian-11-bullseye-and-vagrant/). Päätin aloittaa luomalla ensin pelkästään master-palvelimen ja lähteä siitä sitten laajentamaan projektia vaiheittain. Kuvakaappauksessa olevassa koodissa määrittelen master-palvelimelle nimen, käytettävän käyttöjärjestelmän ja ip-osoitteen. Tämän jälkeen käynnistin virtuaalikoneen komennolla `vagrant up` ja yhdistin sille komennolla `vagrant ssh MasterServer`. 
@@ -13,7 +18,7 @@
   ![Näyttökuva (4)](https://github.com/user-attachments/assets/294744e1-5024-4d06-9c80-d17dafccbd37)
   ![Näyttökuva (5)](https://github.com/user-attachments/assets/7adbd5b6-5f96-4a4f-8c04-58908ced8d94)
 
-### Vpn-palvelimen pystytys ja Salt-minionin asennus
+### 2. Vpn-palvelimen pystytys ja Salt-minionin asennus
 - Kirjauduttuani ulos master-palvelimelta siirryin takaisin muokkaamaan Vagrantfilea komennolla `notepad Vagrantfile`. Master-palvelinta varten luotu koodinpätkä oli toimiva, joten kopioin sen sellaisenaan vpn-palvelinta varten muuttaen palvelimen nimen ja ip-osoitteen. Nyt kun olin asentanut Salt-masterin manuaalisesti, niin halusin kokeilla luoda Vagrantfileen skriptin, joka automaattisesti asentaa Salt-minionin. Katsoin tähän mallia [täältä](https://developer.hashicorp.com/vagrant/docs/provisioning/shell#inline-scripts) ja tein sen pohjalta kuvakaappauksen mukaisen skriptin.
   ![Näyttökuva (6)](https://github.com/user-attachments/assets/4d4975ce-43a2-486e-84bb-169904e27107)
 - Jotain
@@ -24,7 +29,7 @@
   ![Näyttökuva (10)](https://github.com/user-attachments/assets/b97b0ab0-6633-4a48-b8f2-68791a467df5)
   ![Näyttökuva (318)](https://github.com/user-attachments/assets/ed48c5e7-55eb-43f1-968f-7b953717e571)
   
-### Client-palvelimen pystytys
+### 3. Client-palvelimen pystytys
 - 
 
 ## Lähteet:
