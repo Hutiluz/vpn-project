@@ -6,7 +6,9 @@
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
 [2. Vpn-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#2-vpn-palvelimen-pystytys-ja-salt-minionin-asennus) <br>
 [3. Client-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#3-client-palvelimen-pystytys-salt-minionin-asennus-ja-p%C3%A4ivitysten-automaattinen-asennus) <br>
-[4. Palvelinten linkitys toisiinsa](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#4-palvelinten-linkitys-toisiinsa) <br>
+[4. Vagrantfilen hienosäätö](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#4-palvelinten-linkitys-toisiinsa) <br>
+[5. Palvelinten linkitys]() <br>
+[5. WireGuardin asennus ja konfigurointi]() <br>
 [Lähteet](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#l%C3%A4hteet)<br>
   
 ### 1. Master-palvelimen pystytys ja Salt-masterin asennus
@@ -37,14 +39,17 @@
   ![Näyttökuva (13)](https://github.com/user-attachments/assets/618e8621-b5e5-4540-a73e-74d59535b093)
 - Nyt kun Vagrantfilen koodit ja skriptit on todettu toimiviksi halusin lisätä vielä uuden update-skriptin, joka hakee ja asentaa päivitykset automaattisesti. Otin mallia aiemmasta minion_scriptistä ja lisäsin jokaisen virtuaalikoneen ajamaan sen käynnistyksen yhteydessä. Alla on kuvakaappaus päivitetystä Vagrantfilesta.
   ![Näyttökuva (14)](https://github.com/user-attachments/assets/16c6c888-e478-4c92-a8d4-2ac9fd270786)
-- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta `vagrant up` komentoa tuhoamatta niitä. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Ajoin komennot yksitellen kaikille kolmelle palvelimelle ja vaikka skriptien ajot onnistuivat, niin tein neljä huomiota.
-    - minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se pitkällä tähtäimellä olisi hyvä korjata esim. if-silmukalla. En kuitenkaan tunne ruby ohjelmointia erityisen hyvin ja siihen pitäisi perehtyä tarkemmin, joten palaan siihen hieman myöhemmin.
+- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta `vagrant up` komentoa tuhoamatta niitä. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Ajoin komennot yksitellen kaikille kolmelle palvelimelle ja vaikka skriptien ajot onnistuivat, niin tein muutamia huomioita.
+    - minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se olisi hyvä korjata.
     - update-skripti toimii, mutta se ei aina asenna kaikkia päivityksiä, vaikka pitäisi. Yritin korjata tämän ensin antamalla skriptille sudo-oikeudet, mutta se ei korjannut tilannetta.
     - salt-master ei aina käynnistynyt, joten lisäsin skripteihin asennuksen jälkeen `sudo systemctl start salt-master` ja `sudo systemctl start salt-master`.
     - Vaatii rebootin
 
-### 4. Palvelinten linkitys toisiinsa
-- 
+### 4. Vagrantfilen hienosäätö
+- Aloitin helpoimmasta ongelmasta eli saltin käynnistymisestä lisäämällä sekä minion_scriptiin että master_scriptiin `sudo systemctl start` asennuksen loppuun. Tämä korjasi ongelman.
+- Siirryin sen jälkeen
+
+### 5. Palvelinten linkitys
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
