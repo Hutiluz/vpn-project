@@ -25,12 +25,12 @@
 - Käynnistin koneet uudelleen komennolla `vagrant up` ja master-palvelin käynnistyy normaalisti, mutta vpn-palvelin heittää timeouttia. Kokeilin kirjautua vpn-palvelimelle komennolla `vagrant ssh VpnServer` ja tarkastin salt-minionin tilan komennolla `systemctl status salt-minion`. Kuten kuvakaappauksesta näkyy, pääsin kirjautumaan normaalisti sisälle, mutta laitteen nimi on väärin eikä salt-minion ollut asentunut. Kirjaudun ulos koneelta `exit` komennolla ja ajoin uudelleen minion-scriptin komennolla `vagrant provision VpnServer`.
   ![Näyttökuva (7)](https://github.com/user-attachments/assets/534ae1a1-7bc6-4565-8e71-3e4e0957686e)
   ![Näyttökuva (8)](https://github.com/user-attachments/assets/0514fe47-3c07-4031-869d-9f1a3b405cfc)
-- Kirjauduin uudelleen
+- Kirjauduin uudelleen palvelimelle ja tarkistin salt-minionin tilan komennolla `systemctl status salt-minion`. Tällä kertaa salt-minion oli asentunut, mutta palvelimen nimi oli edelleen väärin. Muutin sen manuaalisesti komennolla `sudo hostnamectl set-hostname vpn` ja käynnistin koneen uudelleen. Kun yhdistin takaisin koneelle, niin palvelimen nimi oli myös oikein. Lopuksi poistuin palvelimelta komennolla `exit`.
   ![Näyttökuva (10)](https://github.com/user-attachments/assets/b97b0ab0-6633-4a48-b8f2-68791a467df5)
-  ![Näyttökuva (318)](https://github.com/user-attachments/assets/ed48c5e7-55eb-43f1-968f-7b953717e571)
+  ![Näyttökuva (11)](https://github.com/user-attachments/assets/ed48c5e7-55eb-43f1-968f-7b953717e571)
   
-### 3. Client-palvelimen pystytys
-- Jotain
+### 3. Client-palvelimen pystytys, Salt-minionin asennus ja Vagrantfilen viimeistely
+- 
   ![Näyttökuva (319)](https://github.com/user-attachments/assets/7e0a580d-b55a-456b-a59a-f1db433aa613)
 
 
