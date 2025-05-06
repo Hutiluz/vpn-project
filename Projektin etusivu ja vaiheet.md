@@ -82,7 +82,11 @@
 - Tämän jälkeen tein config-tiedostoille ja avaimille oman polun komennolla `sudo mkdir -p /srv/salt/wireguard/files` ja siirryin sinne komennolla `cd /srv/salt/wireguard/files/`. Seuraavaksi yritin luoda palvelimille avainparit ajamalla komennon `sudo wg genkey | sudo tee vpn_private.key | wg pubkey | sudo tee vpn_public.key`. Nimi on eri kuin ohjeistuksessa, koska sama komento tulisi ajaa erikseen vpn-palvelimella ja client-palvelimella, jolloin generoituja avaimia olisi yhteensä neljä. Haluan tehdä tämän kuitenkin master-palvelimelta käsin, joten päätin antaa avaimilleni nimiksi vpn_private.key ja vpn_public.key. Komento ei kuitenkaan toiminut, koska en ollut asentanut WireGuardia master-palvelimelle. Asensin sen nopeasti hakemalla ensin päivitykset komennolla `sudo apt update` ja sitten asentamalla wireguardin komennolla `sudo apt install wireguard -y`
   ![Näyttökuva (29)](https://github.com/user-attachments/assets/5faf3d1c-06a6-4b78-bc3b-9dc0432b18de)
 - Kun WireGuard oli asentunut, niin kokeilin uudestaan luoda palvelimille avainparit komennoilla `sudo wg genkey | sudo tee vpn_private.key | wg pubkey | sudo tee vpn_public.key` ja `sudo wg genkey | sudo tee client_private.key | wg pubkey | sudo tee client_public.key`. Tällä kertaa komento toimi ja avaimet luotiin. Tämän jälkeen loin config-tiedostot komennoilla `sudo nano vpn_wg0.conf` ja `sudo nano client_wg0.conf`, kopioin ohjeistuksessa olleet config-tiedoston pohjat ja liitin avaimet siihen.
-- ![Näyttökuva (30)](https://github.com/user-attachments/assets/9ff87780-3a0f-4468-9c66-9fe150da69da)
+  ![Näyttökuva (30)](https://github.com/user-attachments/assets/9ff87780-3a0f-4468-9c66-9fe150da69da)
+  ![Näyttökuva (31)](https://github.com/user-attachments/assets/4a5d073e-b901-4329-ada9-88bfa1ddf621)
+  ![Näyttökuva (32)](https://github.com/user-attachments/assets/e63928c1-d46a-4849-8e54-ff5a5ff589d0)
+- 
+
 
 
 ## Lähteet:
