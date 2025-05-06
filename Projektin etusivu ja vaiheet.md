@@ -6,9 +6,9 @@
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
 [2. Vpn-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#2-vpn-palvelimen-pystytys-ja-salt-minionin-asennus) <br>
 [3. Client-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#3-client-palvelimen-pystytys-salt-minionin-asennus-ja-p%C3%A4ivitysten-automaattinen-asennus) <br>
-[4. Vagrantfilen hienosäätö](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#4-palvelinten-linkitys-toisiinsa) <br>
-[5. Palvelinten linkitys]() <br>
-[5. WireGuardin asennus ja konfigurointi]() <br>
+[4. Salt-masterin automatisoitu asennus ja Vagrantfilen hienosäätö](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#4-salt-masterin-automatisoitu-asennus-ja-vagrantfilen-hienos%C3%A4%C3%A4t%C3%B6) <br>
+[5. Palvelinten linkitys](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#5-palvelinten-linkitys) <br>
+[6. WireGuardin asennus ja konfigurointi]() <br>
 [Lähteet](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#l%C3%A4hteet)<br>
   
 ### 1. Master-palvelimen pystytys ja Salt-masterin asennus
@@ -49,6 +49,9 @@
 - Siirryin sen jälkeen korjaamaan update-skriptiä. Kokeilin ensin antaa skriptille root-oikeudet lisäämällä `sudo` komentojen eteen, mutta se ei auttanut. Löysin AskUbuntusta [keskustelun](https://askubuntu.com/questions/449032/29-packages-can-be-updated-how), jossa toisella käyttäjällä oli vastaava ongelma ja siihen oli ehdotettu `dist-upgrade` käyttöä. Tämä korjasi ongelman ja kaikki päivitykset asentuivat, mutta palvelimet tarvitsivat uudelleenkäynnistystä. Yritin lisätä update-skriptin loppuun `sudo reboot`, mutta se vain keskeytti skriptin eikä jatkunut automaattisesti boottauksen jälkeen. En löytänyt tähän äkkiseltään toimivaa ratkaisua, mutta koska palvelimet toimivat ongelmitta ilman uudelleenkäynnistystä, niin en pidä tätä isona ongelmana. Alla kuvakaappaus skriptistä tähän mennessä.
 
 ### 5. Palvelinten linkitys
+- 
+
+### 6. WireGuardin asennus ja konfigurointi
 - 
 
 ## Lähteet:
