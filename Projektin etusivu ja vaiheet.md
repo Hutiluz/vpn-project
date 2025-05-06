@@ -66,12 +66,17 @@
 - Puhelun vastaamisessa päädyin samanlaiseen ratkaisuun, kuin minion_scriptinkin kanssa eli lisäsin master_scriptin loppuun if-silmukan ulkopuolelle muutaman rivin koodia, jotka käyvät hyväksymässä lähetetyt avaimet. Tätä kohtaa en kuitenkaan saanut täysin automatisoitua, sillä skripti etenee järjestyksessä ylhäältä alas. Jos master-palvelin luodaan ensin, niin skriptillä ei ole vielä hyväksyttäviä avaimia, koska client-palvelinta tai vpn-palvelinta ei ole vielä luotu. Jos taas siirrän master-palvelimen järjestyksessä viimeiseksi, niin avaimet eivät tule perille, koska niille annetussa ip-osoitteessa ei ole vielä mitään. En myöskään keksinyt järkevää tapaa, jolla olisin voinut suorittaa avainten hyväksymisen sen jälkeen, kun virtuaalikoneet oli luotu, sillä provisionien tulee olla define-lohkon sisällä. Tyydyinkin siis siihen, että koneiden käynnistyessä `vagrant up` komennolla ajan uudelleen `vagrant provision MasterServer`, jotta Vagrant ajaa uudelleen skriptin, joka hyväksyy avaimet. Eli ensimmäisellä kerralla koodi ei tee vielä mitään, mutta toistettaessa uudestaan se hyväksyy avaimet. Kun avaimet on hyväksytty, niin vaikka se ajettaisiin uudelleen niin mitään ei tapahdu, koska ei ole enää hyväksyttäviä avaimia. Alla kuvakaappaus päivitetystä master_scriptistä, joka hyväksyy avaimet nimeltä vpn ja client.
   ![Näyttökuva (22)](https://github.com/user-attachments/assets/3078fb2b-a02c-4703-acff-a42955c81bd5)
 - Lopuksi testasin, että kaikki varmasti toimii tuhoamalla koneet `vagrant destroy` komennolla ja ajamalla uudelleen `vagrant up`. Periaatteessa olisin vain voinut ajaa esim. `vagrant provision ClientServer` ja `vagrant provision MasterServer` komennot, mutta koodiin oli tullut niin paljon kerroksia, että halusin varmistaa kaiken toimivan oikein. Kaikki onneksi toimi kuten pitikin, joten pääsin jatkamaan WireGuardin pariin.
-- 
+  
   ![Näyttökuva (23)](https://github.com/user-attachments/assets/582c3904-7d4c-4d3c-90e2-24d82c0382cd)
   ![Näyttökuva (24)](https://github.com/user-attachments/assets/ecabd52f-6c3f-412c-b059-d6b7e4d9f1a1)
 
 ### 6. WireGuardin asennus ja konfigurointi
+- Aloitin WireGuardin asennuksen kirjautumalla ensin master-palvelimelle komennolla `vagrant ssh MasterServer` ja varmistamalla yhteyden minionien kanssa pingaamalla ne komennolla `sudo salt '*' test.ping`. Kummatkin palvelimet vastasivat, joten pääsin jatkamaan eteenpäin. Loin WireGuardille oman hakemiston komennolla `sudo mkdir -p /srv/salt/wireguard`, jonka jälkeen loin sille init.sls tiedoston komennolla `sudo nano /srv/salt/wireguard/init.sls`. Halusin jälleen lähteä aluksi aika yksinkertaisesta liikkeelle, joten lisäsin init-tiedostoon pelkästään WireGuardin pkg.installed ja ajoin sen minioneille komennolla `sudo salt '*' state.apply wireguard`. Komento toimi ja WireGuard asentui kummallekin minionille. Varmistin idempotentin ajamalla komennon uudelleen, mikä myös toimi odotetusti.
+  ![Näyttökuva (25)](https://github.com/user-attachments/assets/85fe958e-f600-4ccb-b0f8-31cd3c0e1e73)
+  ![Näyttökuva (26)](https://github.com/user-attachments/assets/9f8044b2-4bdb-4a45-a115-f4fe56ae82a5)
+  ![Näyttökuva (27)](https://github.com/user-attachments/assets/7da941ce-81f0-4dcd-bdde-4404f36799b5)
 - 
+
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
