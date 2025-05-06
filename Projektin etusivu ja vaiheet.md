@@ -1,6 +1,6 @@
-# VPN-palvelin
+# VPN-palvelin WireGuardin avulla
 ### Projektin esittely
-- Miniprojektinani tein VPN-palvelimen Wireguardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti toimialueen salt-masterina, kun taas vpn -ja client-palvelimet ovat salt-minionin roolissa. Ideana on reitittää Client-palvelin Vpn-palvelimen kautta.
+- Miniprojektinani tein VPN-palvelimen WireGuardin avulla. Projektia varten luon kolme virtuaalikonetta: MasterServerin, VpnServerin ja ClientServerin. Master-palvelin toimii luonnollisesti toimialueen salt-masterina, kun taas vpn -ja client-palvelimet ovat salt-minionin roolissa. Ideana on reitittää Client-palvelin Vpn-palvelimen kautta.
   
 ### Sisällysluettelo
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20etusivu%20ja%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
@@ -40,7 +40,7 @@
 - Nyt kun Vagrantfilen koodit ja skriptit on todettu toimiviksi halusin lisätä vielä uuden update-skriptin, joka hakee ja asentaa päivitykset automaattisesti. Otin mallia aiemmasta minion_scriptistä ja lisäsin jokaisen virtuaalikoneen ajamaan sen käynnistyksen yhteydessä. Alla on kuvakaappaus päivitetystä Vagrantfilesta.
   ![Näyttökuva (14)](https://github.com/user-attachments/assets/16c6c888-e478-4c92-a8d4-2ac9fd270786)
 - Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta `vagrant up` komentoa tuhoamatta niitä. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Ajoin komennot yksitellen kaikille kolmelle palvelimelle ja vaikka skriptien ajot onnistuivat, niin tein muutamia huomioita.
-    - Minion_script ajetaan, vaikka salt-minion olisi jo asennettu Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu. Se kuitenkin kuitenkin hidastamaan jonkin verran palvelinten käynnistymistä, joten se olisi hyvä korjata.
+    - Minion_script ajetaan, vaikka salt-minion olisi jo asennettu. Se ei tässä vaiheessa vielä periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu, mutta se kuitenkin voi hidastaa turhaan palvelinten käynnistymistä.
     - Update-skripti toimii, mutta se ei aina asenna kaikkia päivityksiä, vaikka pitäisi.
     - Salt-master ei aina käynnistynyt automaattisesti, vaan se piti käydä erikseen potkaisemassa käyntiin palvelimella.
 
