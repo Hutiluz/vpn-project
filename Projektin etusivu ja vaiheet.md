@@ -45,9 +45,8 @@
     - Salt-master ei aina käynnistynyt automaattisesti, vaan se piti käydä erikseen potkaisemassa käyntiin palvelimella.
 
 ### 4. Salt-masterin automatisoitu asennus ja Vagrantfilen hienosäätö
-- Aloitin helpoimmasta ongelmasta eli salt-masterin käynnistymisestä lisäämällä master_scriptin loppuun `sudo systemctl start salt-master`. Minion-palvelimilla ei ollut vastaavaa ongelmaa, mutta lisäsin minion_scriptinkin loppuun `sudo systemctl start salt-mainion` ettei se tule myöhemmin kummittelemaan.
-- Siirryin sen jälkeen
-
+- Aloitin helpoimmasta ongelmasta eli salt-masterin automaattisesta käynnistyksestä. Halusin tehdä myös sen asennuksesta automatisoidun, joten kopioin minion_scriptin ja tein siitä uuden master_scriptin, jonka lisäsin MasterServerin provisioneihin. Varmistin vielä saltin automaattisen käynnistyksen lisäämällä loppuun `sudo systemctl start salt-master`. Minion-palvelimilla ei ollut vastaavaa ongelmaa saltin käynnistyksessä, mutta lisäsin minion_scriptinkin loppuun `sudo systemctl start salt-mainion` ettei se tule myöhemmin kummittelemaan.
+- Siirryin sen jälkeen korjaamaan update-skriptiä. Kokeilin ensin antaa skriptille root-oikeudet lisäämällä `sudo` komentojen eteen, mutta se ei auttanut. Löysin AskUbuntusta [keskustelun](https://askubuntu.com/questions/449032/29-packages-can-be-updated-how), jossa toisella käyttäjällä oli vastaava ongelma ja siihen oli ehdotettu `dist-upgrade` käyttöä. Tämä korjasi ongelman ja kaikki päivitykset asentuivat, mutta palvelimet tarvitsivat uudelleenkäynnistystä. Yritin lisätä update-skriptin loppuun `sudo reboot`, mutta se vain keskeytti skriptin eikä jatkunut automaattisesti boottauksen jälkeen. En löytänyt tähän äkkiseltään toimivaa ratkaisua, mutta koska palvelimet toimivat ongelmitta ilman uudelleenkäynnistystä, niin en pidä tätä isona ongelmana. Alla kuvakaappaus skriptistä tähän mennessä.
 
 ### 5. Palvelinten linkitys
 - 
