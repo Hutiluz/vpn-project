@@ -3,7 +3,7 @@
 - Moi
 
 ### Sisällysluettelo
- 1. Master-palvelimen pystytys ja Salt-masterin asennus
+ 1. [Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/frontpage.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus)
  2. Vpn-palvelimen pystytys ja Salt-minionin asennus
  3. Client-palvelimen pystytys ja Salt-minionin asennus
   
