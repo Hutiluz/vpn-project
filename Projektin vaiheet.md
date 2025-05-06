@@ -3,6 +3,7 @@
 [1. Master-palvelimen pystytys ja Salt-masterin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#1-master-palvelimen-pystytys-ja-salt-masterin-asennus) <br>
 [2. Vpn-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#2-vpn-palvelimen-pystytys-ja-salt-minionin-asennus) <br>
 [3. Client-palvelimen pystytys ja Salt-minionin asennus](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#3-client-palvelimen-pystytys-salt-minionin-asennus-ja-vagrantfilen-viimeistely) <br>
+[4. Palvelinten linkitys toisiinsa]() <br>
 [Lähteet](https://github.com/Hutiluz/vpn-project/blob/main/Projektin%20vaiheet.md#l%C3%A4hteet)<br>
   
 ### 1. Master-palvelimen pystytys ja Salt-masterin asennus
@@ -31,7 +32,12 @@
   ![Näyttökuva (12)](https://github.com/user-attachments/assets/7e0a580d-b55a-456b-a59a-f1db433aa613)
 - Käynnistin koneet jälleen `vagrant up` komennolla, mutta tällä kertaa kaikki sujui hyvin eikä tullut timeouttia. Yhdistin client-palvelimelle komennolla `vagrant ssh ClientServer` ja tarkistin salt-minionin tilan komennolla `systemctl status salt-minion`. Salt-minion oli asentunut kerralla oikein ja palvelimen nimikin oli oikein. Kirjauduinkin ulos palvelimelta ja siirryin takaisin Vagrantfileen tekemään muutamia hienosäätöjä.
   ![Näyttökuva (13)](https://github.com/user-attachments/assets/618e8621-b5e5-4540-a73e-74d59535b093)
-- moi
+- Nyt kun Vagrantfilen koodit ja skriptit on todettu toimiviksi halusin lisätä vielä uuden update-skriptin, joka hakee ja asentaa päivitykset automaattisesti. Otin mallia aiemmasta minion_scriptistä ja lisäsin jokaisen virtuaalikoneen ajamaan sen käynnistyksen yhteydessä. Alla on kuvakaappaus päivitetystä Vagrantfilesta.
+  ![Näyttökuva (14)](https://github.com/user-attachments/assets/16c6c888-e478-4c92-a8d4-2ac9fd270786)
+- Koska koneet ovat jo päällä, niin en voi testata update-skriptin toimivuutta käyttämällä `vagrant up`. Sen sijaan testasin sitä käyttämällä `vagrant provision [palvelimen nimi]`-komentoa. Jouduin ajamaan komennot yksitellen kaikille kolmelle palvelimelle, mutta se toimi kuten pitikin. Ainoana huomio oli se, että minion_script ajetaan, vaikka salt-minion olisi jo asennettu. Se periaatteessa ei haittaa, koska ylimääräisiä muutoksia ei tapahdu, mutta se kuitenkin hidastaa jonkin verran palvelinten käynnistymistä. En kuitenkaan tunne vielä ruby-ohjelmointia riittävän hyvin, että osaisin luoda toimivan if-silmukan. Yritän kuitenkin korjata tämän, mikäli aika riittää siihen.
+
+
+### 4. Palvelinten linkitys toisiinsa
 
 
 ## Lähteet:
