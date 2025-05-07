@@ -90,7 +90,13 @@
   ![Näyttökuva (34)](https://github.com/user-attachments/assets/870d6a82-4202-45c4-a8cb-35fc950f9083)
   ![Näyttökuva (35)](https://github.com/user-attachments/assets/15e4292b-af74-4ff3-bb8d-dfb484e3dee2)
   ![Näyttökuva (36)](https://github.com/user-attachments/assets/65f9ec92-74fc-4153-b251-7b7ab47efd91)
+- Kun conf-tiedostot oli saatu valmiiksi, niin siirryin käynnistämään ip forwardingin ja wireguardin. Aloitin client palvelimella, sillä se oli näistä kahdesta hieman helpompi. Avasin clientin init-tiedoston komennolla `sudo nano client_init.sls` ja lisäsin sinne kuvakaappauksen mukaisen tekstin. Tämän jälkeen tallensin tiedoston ja ajoin tiedoston client-palvelimelle komennolla `sudo salt 'client' state.apply wireguard.client_init`. Komento toimi hyvin ensimmäisellä ajokerralla, mutta kun ajoin komennon toisen kerran, niin se ilmoitti että wireguard_start on epäonnistunut. Errorviestin mukaan tämä johtuu siitä, että wg0 on jo olemassa, minkä vuoksi komentoa ei voi ajaa toista kertaa. Ymmärtäisin tämän kuitenkin niin, että wireguard on nyt käynnissä client-palvelimella, joten toiminnallisuuden kannalta komento toimii oikein, mutta se ei valitettavasti ole idempodentti.
+  ![Näyttökuva (37)](https://github.com/user-attachments/assets/d0b12f43-4e52-4e07-b923-cf109b444592)
+  ![Näyttökuva (38)](https://github.com/user-attachments/assets/6e0f1e60-914b-4744-90c8-957cfbf3924d)
+  ![Näyttökuva (38)](https://github.com/user-attachments/assets/bb5c7e4f-3d64-4c5f-9e41-6fdbf1ed42ac)
 - 
+- ![Näyttökuva (38)](https://github.com/user-attachments/assets/61367a72-bbfd-431b-a18c-2a0ed06ab54d)
+
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
