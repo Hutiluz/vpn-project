@@ -98,9 +98,8 @@
   ![Näyttökuva (39)](https://github.com/user-attachments/assets/a87c6981-c74c-4545-be62-f20883558c46)
   ![Näyttökuva (40)](https://github.com/user-attachments/assets/01f5aedb-7aca-4823-b5e7-4b965151d356)
   ![Näyttökuva (41)](https://github.com/user-attachments/assets/c21002ec-77ab-45e3-8e7c-e8407e549e48)
-- 
-
-
+- Failed viesteistä huolimatta päätin testata palvelinten välisen yhteyden hyppäämällä client serverille ja ajamalla komennot `ping 10.100.0.1` ja `ip a`. Kuten näkyy niin ping löytää vpn-serverin ja ip a näyttää wg0-liitännän kuten pitääkin. 
+- ![Näyttökuva (42)](https://github.com/user-attachments/assets/91f8ec82-9e79-4980-8209-3ac85f22333f)
 
 ## Lähteet:
 - Karvinen 2025: https://terokarvinen.com/palvelinten-hallinta/#laksyt. Luettu 4.5.2025.
