@@ -90,12 +90,16 @@
   ![Näyttökuva (34)](https://github.com/user-attachments/assets/870d6a82-4202-45c4-a8cb-35fc950f9083)
   ![Näyttökuva (35)](https://github.com/user-attachments/assets/15e4292b-af74-4ff3-bb8d-dfb484e3dee2)
   ![Näyttökuva (36)](https://github.com/user-attachments/assets/65f9ec92-74fc-4153-b251-7b7ab47efd91)
-- Kun conf-tiedostot oli saatu valmiiksi, niin siirryin käynnistämään ip forwardingin ja wireguardin. Aloitin client palvelimella, sillä se oli näistä kahdesta hieman helpompi. Avasin clientin init-tiedoston komennolla `sudo nano client_init.sls` ja lisäsin sinne kuvakaappauksen mukaisen tekstin. Tämän jälkeen tallensin tiedoston ja ajoin tiedoston client-palvelimelle komennolla `sudo salt 'client' state.apply wireguard.client_init`. Komento toimi hyvin ensimmäisellä ajokerralla, mutta kun ajoin komennon toisen kerran, niin se ilmoitti että wireguard_start on epäonnistunut. Errorviestin mukaan tämä johtuu siitä, että wg0 on jo olemassa, minkä vuoksi komentoa ei voi ajaa toista kertaa. Ymmärtäisin tämän kuitenkin niin, että wireguard on nyt käynnissä client-palvelimella, joten toiminnallisuuden kannalta komento toimii oikein, mutta se ei valitettavasti ole idempodentti.
+- Kun conf-tiedostot oli saatu valmiiksi, niin siirryin käynnistämään ip forwardingin ja wireguardin. Aloitin client-palvelimella, sillä se oli näistä kahdesta hieman helpompi. Avasin clientin init-tiedoston komennolla `sudo nano client_init.sls` ja lisäsin sinne kuvakaappauksen mukaisen tekstin. Tämän jälkeen tallensin tiedoston ja ajoin tiedoston client-palvelimelle komennolla `sudo salt 'client' state.apply wireguard.client_init`. Komento toimi hyvin ensimmäisellä ajokerralla, mutta kun ajoin komennon toisen kerran, niin se ilmoitti että wireguard_start on epäonnistunut. Errorviestin mukaan tämä johtuu siitä, että wg0 on jo olemassa, minkä vuoksi komentoa ei voi ajaa toista kertaa. Ymmärtäisin tämän kuitenkin niin, että wireguard on nyt käynnissä client-palvelimella, joten toiminnallisuuden kannalta komento toimii oikein, mutta se ei valitettavasti ole idempodentti.
   ![Näyttökuva (37)](https://github.com/user-attachments/assets/d0b12f43-4e52-4e07-b923-cf109b444592)
   ![Näyttökuva (38)](https://github.com/user-attachments/assets/6e0f1e60-914b-4744-90c8-957cfbf3924d)
   ![Näyttökuva (38)](https://github.com/user-attachments/assets/bb5c7e4f-3d64-4c5f-9e41-6fdbf1ed42ac)
+- Seuraavaksi siirryin vpn-palvelimen puolelle, jonka init-tiedostoon tuli lisätä ip forwarding, forwardingin käynnistys ja wireguardin käynnistys. Wireguardin käynnistys oli siinä mielessä helppo, että kopioin sen vain client_init-tiedostosta. Ip-forwardingin kanssa meinasin aluksi tehdä saman, kuin config tiedostojen kanssa eli luoda master-palvelimelle oman version ja sitten kopioida sen minion-palvelimelle. Kyseessä kuitenkin oli valmis tiedosto, jossa oli entuudestaan sisältöä, joten päädyin tekemään sen file.appendin kautta.Ip-forwardingin käynnistykseen käytin myös samaa koodia kuin wireguardinkin kanssa. Tallennan ja ajan tiedoston vpn-palvelimelle komennolla `sudo salt 'vpn' state.apply wireguard.vpn_init` ja sille käy samoin, kuin client-palvelimen kanssa. Ensimmäisessä ajossa kaikki toimii kuten pitääkin, mutta toisella kerralla wireguard_start ilmoittaa, että wg0 on jo olemassa.
+  ![Näyttökuva (39)](https://github.com/user-attachments/assets/a87c6981-c74c-4545-be62-f20883558c46)
+  ![Näyttökuva (40)](https://github.com/user-attachments/assets/01f5aedb-7aca-4823-b5e7-4b965151d356)
+  ![Näyttökuva (41)](https://github.com/user-attachments/assets/c21002ec-77ab-45e3-8e7c-e8407e549e48)
 - 
-- ![Näyttökuva (38)](https://github.com/user-attachments/assets/61367a72-bbfd-431b-a18c-2a0ed06ab54d)
+
 
 
 ## Lähteet:
