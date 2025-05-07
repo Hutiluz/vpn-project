@@ -1,0 +1,20 @@
+install_wireguard:
+  pkg.installed:
+  - name: wireguard
+
+/etc/wireguard/wg0.conf:
+  file.managed:
+    - source: salt://wireguard/files/vpn_wg0.conf
+
+ip_forwarding_conf:
+  file.append:
+    - name: /etc/sysctl.conf
+    - text: net.ipv4.ip_forward=1
+
+ip_forwarding_start:
+  cmd.run:
+    - name: sysctl -p
+
+wireguard_start:
+  cmd.run:
+    - name: wg-quick up /etc/wireguard/wg0.conf

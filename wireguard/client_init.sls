@@ -1,0 +1,11 @@
+install_wireguard:
+ pkg.installed:
+  - name: wireguard
+
+/etc/wireguard/wg0.conf:
+  file.managed:
+    - source: salt://wireguard/files/client_wg0.conf
+
+wireguard_start:
+  cmd.run:
+    - name: wg-quick up /etc/wireguard/wg0.conf
